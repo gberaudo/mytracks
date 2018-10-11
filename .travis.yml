@@ -1,0 +1,20 @@
+---
+language: node_js
+sudo: false
+node_js:
+  - "lts/*"
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run doc
+  - npx ng lint
+  - npm ng build --prod
+  - npx ng test
+  - npx ng e2e
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: scripts/travis-deploy.sh
+    on:
+      branch: master

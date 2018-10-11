@@ -7,6 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "doc": "node_modules/.bin/compodoc --tsconfig tsconfig.json --output dist/apidoc --minimal --disableDomTree --disableGraph",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -26,9 +27,10 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
-    "@angular/cli": "~6.2.4",
+    "@angular/cli": "^6.2.5",
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",
+    "@compodoc/compodoc": "^1.1.5",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
