@@ -8,7 +8,7 @@ rm -rf ${TMP}
 git clone --single-branch --branch gh-pages ${GITHUB_URL} ${TMP}
 
 pushd ${TMP}
-git rm --ignore-unmatch -r --quiet --force ${TRAVIS_BRANCH} || true
+git rm --ignore-unmatch -r --quiet --force releases/${TRAVIS_BRANCH} || true
 popd
 
 mkdir -p ${TMP}/releases
