@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "npm run patchOl && ng build --prod",
+    "patchOl": "patch --force -p1 < ol-typedef.patch || echo Patch for ol already applied",
     "test": "ng test",
     "lint": "ng lint",
     "doc": "node_modules/.bin/compodoc --tsconfig tsconfig.json --output dist/apidoc --minimal --disableDomTree --disableGraph",
