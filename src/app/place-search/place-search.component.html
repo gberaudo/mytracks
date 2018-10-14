@@ -1,0 +1,10 @@
+<form class="place-search-form">
+  <mat-form-field>
+    <input matInput placeholder="Place" aria-label="State" [matAutocomplete]="auto" [formControl]="placeCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let place of places" [value]="place.name">
+        <span>{{place.name}}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
