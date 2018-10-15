@@ -6,6 +6,8 @@ import OlView from 'ol/View';
 import OlOSMSource from 'ol/source/OSM';
 // @ts-ignore
 import {fromLonLat} from 'ol/proj';
+import {MapService} from './map.service';
+import 'ol/ol.css';
 
 @Component({
   selector: 'app-map',
@@ -14,11 +16,11 @@ import {fromLonLat} from 'ol/proj';
 })
 export class MapComponent implements OnInit {
 
-  constructor() {
+  constructor(private mapService: MapService) {
   }
 
   ngOnInit() {
-    const map = new OlMap({
+    this.mapService.map = new OlMap({
       target: 'map',
       layers: [
         new OlTileLayer({

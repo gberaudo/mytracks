@@ -4,16 +4,17 @@ import {AppComponent} from './app.component';
 import {MapComponent} from './map/map.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PlaceSearchModule} from './place-search/place-search.module';
+import {MapModule} from './map/map.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     PlaceSearchModule,
+    MapModule
   ],
   providers: [],
   bootstrap: [AppComponent]

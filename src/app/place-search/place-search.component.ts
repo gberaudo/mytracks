@@ -1,22 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {debounceTime, map, startWith} from 'rxjs/operators';
+import {MapService} from '../map/map.service';
+
+// @ts-ignore
+import {fromLonLat} from 'ol/proj';
 
 interface OSMPlace {
   display_name: string;
-  lat: number;
-  lon: number;
+  lat: string;
+  lon: string;
 }
 
 class Place {
+  name: string;
+  lat: number;
+  lon: number;
   constructor(osmPlace: OSMPlace) {
-    return {
-      name: osmPlace.display_name,
-      lat: osmPlace.lat,
-      lon: osmPlace.lon
-    };
+    this.name = osmPlace.display_name;
+    this.lat = parseFloat(osmPlace.lat);
+    this.lon = parseFloat(osmPlace.lon);
   }
 }
 
@@ -31,7 +35,7 @@ export class PlaceSearchComponent implements OnInit {
 
   places: Place[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private mapService: MapService) {
 
   }
 
@@ -53,4 +57,15 @@ export class PlaceSearchComponent implements OnInit {
     ).subscribe();
   }
 
+  onPlaceSelected(place: Place) {
+    const  view = this.mapService.map.getView();
+    view.animate({
+      zoom: 15,
+      center: fromLonLat([place.lon, place.lat])
+    });
+  }
+
+  placeDisplayWith(place: Place): string {
+    return place ? place.name : '';
+  }
 }
