@@ -4,10 +4,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PlaceSearchComponent} from './place-search.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
 import {MapModule} from '../map/map.module';
 import {PlaceSearchService} from './place-search.service';
-import {Http, HttpModule} from '@angular/http';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [PlaceSearchComponent],
@@ -20,7 +19,6 @@ import {Http, HttpModule} from '@angular/http';
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    HttpClientModule,
     HttpModule,
     MapModule
   ],
