@@ -1,6 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PlaceSearchComponent } from './place-search.component';
+import {PlaceSearchComponent} from './place-search.component';
+import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {MapService} from '../map/map.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('PlaceSearchComponent', () => {
   let component: PlaceSearchComponent;
@@ -8,9 +13,12 @@ describe('PlaceSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlaceSearchComponent ]
+      imports: [MatInputModule, MatFormFieldModule, MatAutocompleteModule,
+        FormsModule, ReactiveFormsModule, HttpClientModule, BrowserAnimationsModule],
+      declarations: [PlaceSearchComponent],
+      providers: [HttpClient, MapService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
