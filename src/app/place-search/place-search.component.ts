@@ -27,7 +27,7 @@ class Place {
 @Component({
   selector: 'app-place-search',
   templateUrl: './place-search.component.html',
-  styleUrls: ['./place-search.component.css']
+  styleUrls: ['./place-search.component.scss']
 })
 export class PlaceSearchComponent implements OnInit {
   placeCtrl = new FormControl();
