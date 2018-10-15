@@ -1,14 +1,15 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import {MapComponent} from './map/map.component';
+import {async, TestBed} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {PlaceSearchModule} from './place-search/place-search.module';
+import {MapModule} from './map/map.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [PlaceSearchModule, MapModule],
       declarations: [
-        AppComponent,
-        MapComponent
-      ],
+        AppComponent
+      ]
     }).compileComponents();
   }));
 

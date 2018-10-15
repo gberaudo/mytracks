@@ -1,0 +1,15 @@
+.place-search-form {
+  width: 400px;
+  position:absolute;
+  left: 60px;
+  top: 17px;
+  z-index: 1000;
+  border-radius: 2px;
+  padding: 5px;
+  background-color: #ffffffb5;
+}
+
+.place-search-form .mat-form-field {
+  width: 100%;
+}
+
