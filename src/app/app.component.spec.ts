@@ -1,13 +1,15 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {MapComponent} from './map/map.component';
+import {PlaceSearchComponent} from './place-search/place-search.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        MapComponent
+        MapComponent,
+        PlaceSearchComponent
       ],
     }).compileComponents();
   }));
