@@ -7,8 +7,7 @@ import {MapModule} from './map/map.module';
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -18,4 +17,5 @@ import {MapModule} from './map/map.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
