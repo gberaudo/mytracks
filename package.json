@@ -25,7 +25,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "@geoblocks/router": "https://api.github.com/repos/geoblocks/router/tarball/24078be",
+    "@geoblocks/router": "https://api.github.com/repos/geoblocks/router/tarball/66219d6",
     "@geoblocks/edittrack": "https://api.github.com/repos/geoblocks/edittrack/tarball/91c1441",
     "@types/ol": "^4.6.2",
     "core-js": "^2.5.4",

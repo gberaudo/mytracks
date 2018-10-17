@@ -12,8 +12,10 @@ import {MapService} from './map.service';
 import 'ol/ol.css';
 
 import TrackManager from '@geoblocks/edittrack/src/TrackManager';
-import OSRMRouter, {OSRM_DEFAULT_PROFILE_URL} from '@geoblocks/router/src/OSRMRouter';
+import OSRMRouter from '@geoblocks/router/src/OSRMRouter';
 import {styleFunction, controlPoint} from './style';
+
+const token = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
 
 @Component({
   selector: 'app-map',
@@ -51,7 +53,8 @@ export class MapComponent implements OnInit {
 
     const router = new OSRMRouter({
       projection,
-      url: OSRM_DEFAULT_PROFILE_URL
+      url: 'https://api.mapbox.com/directions/v5/mapbox/walking',
+      extraParams: `access_token=${token}`
     });
     const trackManager = new TrackManager({
       projection,
