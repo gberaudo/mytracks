@@ -18,4 +18,8 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.mapService.initMap();
   }
+
+  exportGpx() {
+    this.mapService.exportGpx();
+  }
 }

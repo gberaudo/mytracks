@@ -7,10 +7,13 @@ import OlVectorLayer from 'ol/layer/Vector';
 import OlView from 'ol/View';
 import OlOSMSource from 'ol/source/OSM';
 import OlVectorSource from 'ol/source/Vector';
+import GPXFormat from 'ol/format/GPX';
 
 import TrackManager from '@geoblocks/edittrack/src/TrackManager';
 import OSRMRouter from '@geoblocks/router/src/OSRMRouter';
 import {controlPointStyle, trackLayerStyleFunction} from './style';
+
+import saveAs from 'save-as';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
 
@@ -22,6 +25,7 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk
 )
 export class MapService {
   map: OlMap;
+  private trackManager: TrackManager;
 
   public initMap() {
     const bgLayer = new OlTileLayer({
@@ -53,13 +57,27 @@ export class MapService {
       url: MAPBOX_URL,
       extraParams: `access_token=${MAPBOX_TOKEN}`
     });
-    const trackManager = new TrackManager({
+
+    this.trackManager = new TrackManager({
       projection,
       map,
       trackLayer,
       router,
       style: controlPointStyle
     });
-    trackManager.mode = 'edit';
+    this.trackManager.mode = 'edit';
+  }
+
+  public exportGpx() {
+    const lineString = new GPXFormat().writeFeatures(
+      [this.trackManager.getTrackFeature()],
+      {
+        featureProjection: this.map.getView().getProjection()
+      }
+    );
+
+    const blob = new Blob([lineString], {type: 'application/gpx+xml'});
+
+    saveAs(blob, 'mytrack.gpx');
   }
 }
