@@ -4,8 +4,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PlaceSearchComponent} from './place-search.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
 import {MapModule} from '../map/map.module';
+import {PlaceSearchService} from './place-search.service';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [PlaceSearchComponent],
@@ -18,9 +19,41 @@ import {MapModule} from '../map/map.module';
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    HttpClientModule,
+    HttpModule,
     MapModule
-  ]
+  ],
+  providers: [PlaceSearchService],
+
 })
 export class PlaceSearchModule {
+}
+
+
+export class Place {
+  name: string;
+  lat: number;
+  lon: number;
+  constructor(osmPlace: OSMPlace) {
+    this.name = osmPlace.display_name;
+    this.lat = parseFloat(osmPlace.lat);
+    this.lon = parseFloat(osmPlace.lon);
+  }
+}
+
+
+export interface OSMPlace {
+  display_name: string;
+  lat: string;
+  lon: string;
+}
+
+export interface MapquestPlace {
+  street: string;
+  adminArea5: string; // city
+  adminArea3: string; // state
+  adminArea: string; // country code
+  latLng: {
+    lat: number;
+    lng: number;
+  };
 }
