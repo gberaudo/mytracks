@@ -13,7 +13,7 @@ import 'ol/ol.css';
 
 import TrackManager from '@geoblocks/edittrack/src/TrackManager';
 import OSRMRouter from '@geoblocks/router/src/OSRMRouter';
-import {styleFunction, controlPoint} from './style';
+import {trackLayerStyleFunction, controlPointStyle} from './style';
 
 const token = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
 
@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
     });
     const trackLayer = new OlVectorLayer({
       source: new OlVectorSource(),
-      style: styleFunction
+      style: trackLayerStyleFunction
     });
 
     const map = this.mapService.map = new OlMap({
@@ -61,7 +61,7 @@ export class MapComponent implements OnInit {
       map,
       trackLayer,
       router,
-      style: controlPoint
+      style: controlPointStyle
     });
     trackManager.mode = 'edit';
   }

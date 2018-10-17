@@ -1,6 +1,6 @@
 import {Circle, Fill, Stroke, Style} from 'ol/style.js';
 
-export const controlPoint = new Style({
+export const controlPointStyle = new Style({
   image: new Circle({
     radius: 4,
     fill: new Fill({
@@ -13,18 +13,18 @@ export const controlPoint = new Style({
   })
 });
 
-export const firstControlPoint = controlPoint;
+export const firstControlPointStyle = controlPointStyle;
 
-export const lastControlPoint = controlPoint;
+export const lastControlPointStyle = controlPointStyle;
 
-export const trackLine = new Style({
+export const trackLineStyle = new Style({
   stroke: new Stroke({
     color: '#f00',
     width: 6
   })
 });
 
-export const trackLineModifying = new Style({
+export const trackLineModifyingStyle = new Style({
   stroke: new Stroke({
     color: '#aaa',
     width: 3,
@@ -38,24 +38,24 @@ export function styleFromType(type: string, subtype: string): Style {
     case 'controlPoint':
       switch (subtype) {
         case 'first':
-          return firstControlPoint;
+          return firstControlPointStyle;
         case 'last':
-          return lastControlPoint;
+          return lastControlPointStyle;
         default:
-          return controlPoint;
+          return controlPointStyle;
       }
     case 'segment':
       switch (subtype) {
         case 'modifying':
-          return trackLineModifying;
+          return trackLineModifyingStyle;
         default:
-          return trackLine;
+          return trackLineStyle;
       }
     default:
       return null;
   }
 }
 
-export function styleFunction(feature: (ol.Feature|ol.render.Feature), _: number): Style {
+export function trackLayerStyleFunction(feature: (ol.Feature|ol.render.Feature), _: number): Style {
   return styleFromType(feature.get('type'), feature.get('subtype'));
 }
