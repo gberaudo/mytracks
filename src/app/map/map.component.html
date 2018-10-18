@@ -2,3 +2,7 @@
 <div id="export-gpx">
   <button (click)="exportGpx()">Export to gpx</button>
 </div>
+<div id="import-gpx">
+  <label>Import gpx file</label>
+  <input type="file" (change)="importGpx($event.target.files)"/>
+</div>

@@ -11,7 +11,10 @@ import GPXFormat from 'ol/format/GPX';
 
 import TrackManager from '@geoblocks/edittrack/src/TrackManager';
 import OSRMRouter from '@geoblocks/router/src/OSRMRouter';
-import {controlPointStyle, trackLayerStyleFunction} from './style';
+import {controlPointStyle, trackLayerStyleFunction, importLayerStyleFunction} from './style';
+
+import PointGeometry from 'ol/geom/Point';
+import Feature from 'ol/Feature';
 
 import saveAs from 'save-as';
 
@@ -27,6 +30,8 @@ export class MapService {
   map: OlMap;
   private trackManager: TrackManager;
 
+  private importLayer: OlVectorLayer; // layer to display imported feature, e.g. from gpx
+
   public initMap() {
     const bgLayer = new OlTileLayer({
       source: new OlOSMSource()
@@ -36,10 +41,16 @@ export class MapService {
       style: trackLayerStyleFunction
     });
 
+    const importLayer = this.importLayer = new OlVectorLayer({
+      source: new OlVectorSource,
+      style: importLayerStyleFunction
+    });
+
     const map = this.map = new OlMap({
       target: 'map',
       layers: [
         bgLayer,
+        importLayer,
         trackLayer
       ],
       view: new OlView({
@@ -79,5 +90,43 @@ export class MapService {
     const blob = new Blob([lineString], {type: 'application/gpx+xml'});
 
     saveAs(blob, 'mytrack.gpx');
+  }
+
+  private createControlPointFromCoordinate(coordinate: ol.Coordinate): ol.Feature {
+    const geometry = new PointGeometry(coordinate);
+
+    const feature = new Feature({
+      geometry
+    });
+    feature.setProperties({
+      type: 'controlPoint',
+      snapped: true
+    });
+    return feature;
+  }
+
+  public importGpx(data) {
+    const features = new GPXFormat().readFeatures(data, {
+       featureProjection: this.map.getView().getProjection()
+    });
+
+    const controlPoints = [];
+    for (const feature of features) {
+      if (feature.getGeometry().getType() === 'LineString') {
+        const geometry = <ol.geom.LineString> feature.getGeometry();
+        feature.setProperties({
+          type: 'segment',
+          snapped: true
+        });
+        if (controlPoints.length === 0) {
+          controlPoints.push(this.createControlPointFromCoordinate(geometry.getFirstCoordinate()));
+        }
+        controlPoints.push(this.createControlPointFromCoordinate(geometry.getLastCoordinate()));
+      }
+    }
+
+    this.importLayer.getSource().addFeatures(features);
+    // this.trackManager.restoreFeatures([...features, ...controlPoints]);
+    // this.map.getView().fit(this.trackManager.getSource().getExtent());
   }
 }

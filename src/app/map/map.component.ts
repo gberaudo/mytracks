@@ -22,4 +22,16 @@ export class MapComponent implements OnInit {
   exportGpx() {
     this.mapService.exportGpx();
   }
+
+  importGpx(files) {
+    if (files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = (f) => {
+        this.mapService.importGpx(f.target.result);
+      };
+
+      reader.readAsText(file);
+    }
+  }
 }
