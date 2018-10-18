@@ -32,7 +32,11 @@ export class MapService {
 
   private importLayer: OlVectorLayer; // layer to display imported feature, e.g. from gpx
 
-  public initMap() {
+  constructor() {
+    this.initMap();
+  }
+
+  private initMap() {
     const bgLayer = new OlTileLayer({
       source: new OlOSMSource()
     });
@@ -47,7 +51,6 @@ export class MapService {
     });
 
     const map = this.map = new OlMap({
-      target: 'map',
       layers: [
         bgLayer,
         importLayer,
