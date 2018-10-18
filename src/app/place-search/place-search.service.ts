@@ -3,7 +3,7 @@ import {MapquestPlace, Place} from './place-search.module';
 import {Http} from '@angular/http';
 
 const MAPQUEST_API_KEY = 'XQ2rYGNQsSVc56EzMiLUAsGzAGCTDSkd';
-const MAPQUEST_URL = 'http://open.mapquestapi.com/geocoding/v1/address';
+const MAPQUEST_URL = 'https://open.mapquestapi.com/geocoding/v1/address';
 
 @Injectable()
 export class PlaceSearchService {
