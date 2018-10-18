@@ -56,22 +56,22 @@ export function styleFromType(type: string, subtype: string): Style {
   }
 }
 
-export function trackLayerStyleFunction(feature: (ol.Feature|ol.render.Feature), _: number): Style {
+export function trackLayerStyleFunction(feature: (ol.Feature | ol.render.Feature), _: number): Style {
   return styleFromType(feature.get('type'), feature.get('subtype'));
 }
 
 export const importedLineStyle = new Style({
-   stroke: new Stroke({
+  stroke: new Stroke({
     color: '#75a0ff',
     width: 6
   })
 });
 
-export function importLayerStyleFunction(feature: (ol.Feature|ol.render.Feature), _: number):  Style {
-  const type = feature.get('type');
-   switch (type) {
-    case 'segment':
-     return importedLineStyle;
+export function importLayerStyleFunction(feature: (ol.Feature | ol.render.Feature), _: number): Style {
+  const type = feature.getGeometry().getType();
+  switch (type) {
+    case 'LineString':
+      return importedLineStyle;
     default:
       return null;
   }

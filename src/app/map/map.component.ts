@@ -12,6 +12,8 @@ import 'ol/ol.css';
 })
 export class MapComponent implements OnInit {
 
+  public showMenu: boolean;
+
   constructor(private mapService: MapService) {
   }
 

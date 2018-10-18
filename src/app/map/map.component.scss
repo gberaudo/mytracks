@@ -3,14 +3,15 @@
   height: 100%;
 }
 
-#export-gpx {
+#menu {
   position: absolute;
-  right: 20px;
-  top: 20px;
-}
+  left: 10px;
+  top: 100px;
+  width: 300px;
+  background-color: #ffffffb5;
+  z-index: 1000;
 
-#import-gpx {
-  position: absolute;
-  right: 20px;
-  top: 60px;
+  #menu-content {
+    padding: 10px;
+  }
 }

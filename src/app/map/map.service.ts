@@ -8,10 +8,13 @@ import OlView from 'ol/View';
 import OlOSMSource from 'ol/source/OSM';
 import OlVectorSource from 'ol/source/Vector';
 import GPXFormat from 'ol/format/GPX';
+// @ts-ignore
+import {createEmpty, extend} from 'ol/extent';
+
 
 import TrackManager from '@geoblocks/edittrack/src/TrackManager';
 import OSRMRouter from '@geoblocks/router/src/OSRMRouter';
-import {controlPointStyle, trackLayerStyleFunction, importLayerStyleFunction} from './style';
+import {controlPointStyle, importLayerStyleFunction, trackLayerStyleFunction} from './style';
 
 import PointGeometry from 'ol/geom/Point';
 import Feature from 'ol/Feature';
@@ -110,26 +113,23 @@ export class MapService {
 
   public importGpx(data) {
     const features = new GPXFormat().readFeatures(data, {
-       featureProjection: this.map.getView().getProjection()
+      featureProjection: this.map.getView().getProjection()
     });
 
-    const controlPoints = [];
-    for (const feature of features) {
-      if (feature.getGeometry().getType() === 'LineString') {
-        const geometry = <ol.geom.LineString> feature.getGeometry();
-        feature.setProperties({
-          type: 'segment',
-          snapped: true
-        });
-        if (controlPoints.length === 0) {
-          controlPoints.push(this.createControlPointFromCoordinate(geometry.getFirstCoordinate()));
-        }
-        controlPoints.push(this.createControlPointFromCoordinate(geometry.getLastCoordinate()));
-      }
-    }
+    // we import gpx as a ground layer to assist track creation, so we are interested in LineString features only.
+    const lineFeatures = features.filter(feature => {
+      return feature.getGeometry().getType() === 'LineString';
+    });
 
-    this.importLayer.getSource().addFeatures(features);
-    // this.trackManager.restoreFeatures([...features, ...controlPoints]);
-    // this.map.getView().fit(this.trackManager.getSource().getExtent());
+    this.importLayer.getSource().addFeatures(lineFeatures);
+
+    // fit map to imported features
+    const extent = features.reduce((pre, feature) => {
+      return extend(pre, feature.getGeometry().getExtent());
+    }, createEmpty());
+    this.map.getView().fit(extent, {
+      padding: [100, 100, 100, 100],
+      duration: 1000
+    });
   }
 }
