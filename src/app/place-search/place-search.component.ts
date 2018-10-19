@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
 import {debounceTime, map, startWith} from 'rxjs/operators';
 import {MapService} from '../map/map.service';
 // @ts-ignore

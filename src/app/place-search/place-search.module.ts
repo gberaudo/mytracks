@@ -6,7 +6,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MapModule} from '../map/map.module';
 import {PlaceSearchService} from './place-search.service';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [PlaceSearchComponent],
@@ -19,7 +19,7 @@ import {HttpModule} from '@angular/http';
     ReactiveFormsModule,
     MatInputModule,
     MatAutocompleteModule,
-    HttpModule,
+    HttpClientModule,
     MapModule
   ],
   providers: [PlaceSearchService],
@@ -56,4 +56,10 @@ export interface MapquestPlace {
     lat: number;
     lng: number;
   };
+}
+
+export interface MapquestGeocodeResponse {
+  results: Array<{
+    locations: Array<MapquestPlace>
+  }>;
 }
