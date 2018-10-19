@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
 import {MapComponent} from './map.component';
-import {MapService} from './map.service';
+import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule( {
   declarations: [MapComponent],
-  exports: [MapComponent]
+  exports: [MapComponent],
+  imports: [BrowserModule]
 })
 export class MapModule {
 }
