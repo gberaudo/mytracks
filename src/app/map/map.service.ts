@@ -121,6 +121,7 @@ export class MapService {
       return feature.getGeometry().getType() === 'LineString';
     });
 
+    this.importLayer.getSource().clear();
     this.importLayer.getSource().addFeatures(lineFeatures);
 
     // fit map to imported features
