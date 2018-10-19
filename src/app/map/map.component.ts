@@ -29,8 +29,8 @@ export class MapComponent implements OnInit {
     if (files.length > 0) {
       const file = files[0];
       const reader = new FileReader();
-      reader.onload = (f) => {
-        this.mapService.importGpx(f.target.result);
+      reader.onload = f => {
+        this.mapService.importGpx(reader.result);
       };
 
       reader.readAsText(file);
