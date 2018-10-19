@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MapService} from '../map/map.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PlaceSearchService} from './place-search.service';
-import {Http, HttpModule} from '@angular/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 describe('PlaceSearchComponent', () => {
   let component: PlaceSearchComponent;
@@ -15,7 +15,7 @@ describe('PlaceSearchComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatInputModule, MatFormFieldModule, MatAutocompleteModule,
-        FormsModule, ReactiveFormsModule, HttpModule, BrowserAnimationsModule],
+        FormsModule, ReactiveFormsModule, HttpClientModule, BrowserAnimationsModule],
       declarations: [PlaceSearchComponent],
       providers: [MapService, PlaceSearchService]
     })
