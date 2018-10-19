@@ -5,13 +5,19 @@
 
 #menu {
   position: absolute;
-  left: 10px;
+  left: .5em;
   top: 100px;
-  width: 300px;
-  background-color: #ffffffb5;
   z-index: 1000;
 
+  #menu-toggle-btn {
+    background-color: #ffffffb5;
+    display: inline-block;
+    color: #4d91c1;
+  }
   #menu-content {
     padding: 10px;
+    width: 300px;
+    background-color: #ffffffb5;
+
   }
 }
