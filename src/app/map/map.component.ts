@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-// @ts-ignore
-import {fromLonLat} from 'ol/proj';
 import {MapService} from './map.service';
 import 'ol/ol.css';
 
@@ -12,9 +10,14 @@ import 'ol/ol.css';
 })
 export class MapComponent implements OnInit {
 
-  public showMenu: boolean;
+  public showMenu = true;
+  profile = 'walking';
 
   constructor(private mapService: MapService) {
+  }
+
+  changeProfile() {
+    this.mapService.setProfile(this.profile);
   }
 
   ngOnInit() {
