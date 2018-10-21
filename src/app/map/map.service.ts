@@ -8,6 +8,8 @@ import OlView from 'ol/View';
 import OlOSMSource from 'ol/source/OSM';
 import OlVectorSource from 'ol/source/Vector';
 import GPXFormat from 'ol/format/GPX';
+import GeoJSONFormat from 'ol/format/GeoJSON';
+
 // @ts-ignore
 import {createEmpty, extend} from 'ol/extent';
 
@@ -20,6 +22,7 @@ import PointGeometry from 'ol/geom/Point';
 import Feature from 'ol/Feature';
 
 import saveAs from 'save-as';
+import { GeoJsonObject } from 'geojson';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
 
@@ -28,6 +31,7 @@ const MAPBOX_URLS = {
   'cycling': 'https://api.mapbox.com/directions/v5/mapbox/cycling',
 };
 
+const geojsonFormat = new GeoJSONFormat();
 
 @Injectable(
   {
@@ -140,5 +144,20 @@ export class MapService {
       padding: [100, 100, 100, 100],
       duration: 1000
     });
+  }
+
+  newTrack(geojson: GeoJsonObject) {
+    this.trackManager.mode = 'edit';
+    const features = geojsonFormat.readFeatures(geojson);
+    this.trackManager.restoreFeatures(features);
+  }
+
+  stopEditing() {
+    this.trackManager.mode = 'view';
+  }
+
+  getCurrentTrackAsGeojson(): GeoJsonObject {
+    const features = this.trackManager.getFeatures();
+    return geojsonFormat.writeFeatures(features);
   }
 }
