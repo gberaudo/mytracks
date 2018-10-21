@@ -90,7 +90,6 @@ export class MapService {
       router,
       style: controlPointStyle
     });
-    this.trackManager.mode = 'edit';
   }
 
   public exportGpx() {
@@ -146,10 +145,22 @@ export class MapService {
     });
   }
 
-  newTrack(geojson: GeoJsonObject) {
+  clearTrack() {
+    this.trackManager.clear();
+  }
+
+  viewTrack(track) {
+    const geojson = track.geojson;
+    if (geojson) {
+      const features = geojsonFormat.readFeatures(geojson);
+      this.trackManager.restoreFeatures(features);
+    } else {
+      this.trackManager.clear();
+    }
+  }
+
+  startEditing() {
     this.trackManager.mode = 'edit';
-    const features = geojsonFormat.readFeatures(geojson);
-    this.trackManager.restoreFeatures(features);
   }
 
   stopEditing() {

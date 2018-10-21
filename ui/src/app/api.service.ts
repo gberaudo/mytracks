@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { GeoJsonObject } from 'geojson';
 
 export interface Track {
   id: number,
   name: string,
-  geometry: Array<ol.Coordinate>,
+  geojson: GeoJsonObject,
   profile: string
 };
 
@@ -17,13 +18,13 @@ const tracksStub : Map<number, Track> = new Map([
     id: 1,
     name: 'Tour des rochers de Naye',
     profile: 'walking',
-    geometry: []
+    geojson: null
   }],
   [2, {
     id: 2,
     name: 'Renens Run 1200 2km',
     profile: 'walking',
-    geometry: []
+    geojson: null
   }],
 ]);
 
@@ -49,7 +50,7 @@ export class ApiService {
   }
 
   getTrack(id: number): Promise<Track> {
-    const track = tracksStub[id];
+    const track = tracksStub.get(id);
     return track ? Promise.resolve(track) : Promise.reject();
   }
 
