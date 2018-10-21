@@ -121,6 +121,14 @@ JWT_AUTH = {
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# email
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = True
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
