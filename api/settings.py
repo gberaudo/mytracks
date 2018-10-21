@@ -129,6 +129,9 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') or ''
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') or ''
 EMAIL_USE_TLS = True
 
+# api url
+API_URL = os.environ.get('API_URL') or 'http://127.0.0.1:8000'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
