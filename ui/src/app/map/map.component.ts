@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
       name: 'Super track',
       geojson: null,
       profile: 'walking',
-    }
+    };
     this.mapService.viewTrack(this.currentTrack);
     this.mapService.startEditing();
   }

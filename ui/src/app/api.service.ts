@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { GeoJsonObject } from 'geojson';
 
 export interface Track {
-  id: number,
-  name: string,
-  geojson: GeoJsonObject,
-  profile: string
-};
+  id: number;
+  name: string;
+  geojson: GeoJsonObject;
+  profile: string;
+}
 
 export interface TrackListItem {
-  id: number,
-  name: string
-};
+  id: number;
+  name: string;
+}
 
-const tracksStub : Map<number, Track> = new Map([
+const tracksStub: Map<number, Track> = new Map([
   [1, {
     id: 1,
     name: 'Tour des rochers de Naye',
