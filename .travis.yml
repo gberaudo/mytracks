@@ -1,12 +1,16 @@
 ---
 language: node_js
 sudo: false
+
 node_js:
   - "lts/*"
 
+python:
+    - "3.5"
+
 cache:
   directories:
-    - node_modules
+    - ui/node_modules
 
 addons:
   apt:
@@ -16,18 +20,18 @@ addons:
       - google-chrome-stable
 
 install:
-  - npm install
+  - cd ui; npm install
 
 script:
-  - npm run test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
-  - npm run e2e -- --protractor-config=./e2e/protractor-ci.conf.js
-  - npm run doc
-  - npx ng lint
-  - npm run build --prod
+  - cd ui; npm run test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
+  - cd ui; npm run e2e -- --protractor-config=./e2e/protractor-ci.conf.js
+  - cd ui; npm run doc
+  - cd ui; npx ng lint
+  - cd ui; npm run build --prod
 
 deploy:
   - provider: script
     skip_cleanup: true
-    script: scripts/travis-deploy.sh
+    script: cd ui; scripts/travis-deploy.sh
     on:
       branch: master
