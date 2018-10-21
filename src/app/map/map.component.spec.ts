@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapComponent } from './map.component';
+import {FormsModule} from '@angular/forms';
+import {NgbButtonsModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -8,7 +11,8 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ MapComponent ],
+      imports: [FormsModule, NgbButtonsModule]
     })
     .compileComponents();
   }));
