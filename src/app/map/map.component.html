@@ -6,9 +6,20 @@
     <i class="btn btn-default fa fa-bars" (click)="showMenu = !showMenu"></i>
   </div>
   <div id="menu-content" *ngIf="showMenu">
+
+    <div class="btn-group btn-group-toggle" ngbRadioGroup name="profileRadio" [(ngModel)]="profile" (change)="changeProfile()">
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" value="walking"> Walking
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" value="cycling"> Cycling
+        </label>
+      </div>
+  
     <div id="export-gpx">
       <span class="btn btn-link" (click)="exportGpx()">Export to gpx</span>
     </div>
+
     <div id="import-gpx">
       <label class="btn btn-link">Import gpx file
       <input type="file" (change)="importGpx($event.target.files)" style="display: none"/>

@@ -23,6 +23,11 @@ import saveAs from 'save-as';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
 
+const MAPBOX_URLS = {
+  'walking': 'https://api.mapbox.com/directions/v5/mapbox/walking',
+  'cycling': 'https://api.mapbox.com/directions/v5/mapbox/cycling',
+};
+
 
 @Injectable(
   {
@@ -32,6 +37,7 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk
 export class MapService {
   map: OlMap;
   private trackManager: TrackManager;
+  private router: OSRMRouter;
 
   private importLayer: OlVectorLayer; // layer to display imported feature, e.g. from gpx
 
@@ -67,11 +73,9 @@ export class MapService {
 
     const projection = map.getView().getProjection();
 
-    const MAPBOX_URL = 'https://api.mapbox.com/directions/v5/mapbox/walking';
-
-    const router = new OSRMRouter({
+    const router = this.router = new OSRMRouter({
       projection,
-      url: MAPBOX_URL,
+      url: MAPBOX_URLS['walking'],
       extraParams: `access_token=${MAPBOX_TOKEN}`
     });
 
@@ -109,6 +113,10 @@ export class MapService {
       snapped: true
     });
     return feature;
+  }
+
+  public setProfile(profile: string) {
+    this.router.setUrl(MAPBOX_URLS[profile]);
   }
 
   public importGpx(data) {
