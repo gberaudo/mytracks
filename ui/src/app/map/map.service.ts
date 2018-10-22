@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import OlMap from 'ol/Map';
 // @ts-ignore
-import {fromLonLat} from 'ol/proj';
+import {fromLonLat, addCommon} from 'ol/proj';
 import OlTileLayer from 'ol/layer/Tile';
 import OlVectorLayer from 'ol/layer/Vector';
 import OlView from 'ol/View';
@@ -32,6 +32,7 @@ const MAPBOX_URLS = {
 };
 
 const geojsonFormat = new GeoJSONFormat();
+addCommon();
 
 @Injectable(
   {

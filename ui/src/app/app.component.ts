@@ -11,6 +11,7 @@ import { MapService } from './map/map.service';
 })
 export class AppComponent {
   title = 'mytracks';
+  loggedIn = false;
 
   constructor(
     private apiService: ApiService,
