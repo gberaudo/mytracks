@@ -1,0 +1,14 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-2">
+  <h5 class="my-0 mr-md-auto font-weight-normal">Mytracks</h5>
+
+  <div class="mr-md-auto">
+    <app-place-search></app-place-search>
+  </div>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="#">EN | DE | FR | IT</a>
+    <a class="p-2 text-dark" href="#">Pricing</a>
+  </nav>
+  <a *ngIf="!loggedIn" class="btn btn-outline-primary" (click)="loggedIn = true" href="#">Log in</a>
+  <a *ngIf="loggedIn" class="btn btn-outline-secondary" (click)="loggedIn = false" href="#">Log out</a>
+</div>
+<app-map></app-map>

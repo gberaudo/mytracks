@@ -1,0 +1,50 @@
+<div id="map" class="map"></div>
+
+
+<div id="menu">
+  <!-- <div id="menu-toggle-btn">
+    <i class="btn btn-default fa fa-bars" (click)="showMenu = !showMenu"></i>
+  </div> -->
+  <div id="menu-content" *ngIf="showMenu">
+
+    <!-- <div class="btn-group btn-group-toggle" ngbRadioGroup name="profileRadio" [(ngModel)]="profile" (change)="changeProfile()">
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" value="walking"> Walking
+        </label>
+        <label ngbButtonLabel class="btn-secondary">
+          <input ngbButton type="radio" value="cycling"> Cycling
+        </label>
+      </div> -->
+
+  <div *ngIf="!currentTrack">
+    <ul><h5>My tracks</h5>
+      <li><a (click)="createNewTrack()" href="#">New track</a></li>
+      <li *ngFor="let track of userTracks">
+        <a (click)="viewTrack(track.id)" href="#">{{track.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <div *ngIf="currentTrack">
+    <input [(ngModel)]="currentTrack.name">
+    <div>
+      <a href="#" (click)="saveTrack()">Save track</a>
+    </div>
+
+    <div>
+        <a href="#" (click)="clearCurrentTrack()">Back to list</a>
+    </div>
+
+    <div id="export-gpx">
+        <span class="btn btn-link" (click)="exportGpx()">Export to gpx</span>
+    </div>
+
+    <div id="import-gpx">
+      <label class="btn btn-link">Import gpx file
+      <input type="file" (change)="importGpx($event.target.files)" style="display: none"/>
+      </label>
+    </div>
+  </div>
+</div>
+

@@ -4,6 +4,8 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PlaceSearchModule} from './place-search/place-search.module';
 import {MapModule} from './map/map.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import {MapModule} from './map/map.module';
     BrowserModule,
     BrowserAnimationsModule,
     PlaceSearchModule,
-    MapModule
+    MapModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
