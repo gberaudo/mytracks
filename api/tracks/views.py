@@ -1,6 +1,8 @@
 from rest_framework import generics, serializers, status
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from . import models
 
@@ -37,3 +39,12 @@ class UserTracksView(generics.ListCreateAPIView):
       return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserOneTrackView(RetrieveUpdateAPIView):
+  serializer_class = TrackSerializer
+  permission_classes = (SameUserOrAdminPermission,)
+
+  def get(self, request, user_id, track_id):
+    data = TrackSerializer(models.Track.objects.get(id=track_id)).data
+    return Response(data)
