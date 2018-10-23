@@ -23,4 +23,5 @@ urlpatterns = [
   path(r'api-token-refresh/', refresh_jwt_token),
   path('users/', include('users.urls')),
   path('rest-auth/', include('rest_auth.urls')),
+  path('tracks/', include(('tracks.urls')))
 ]
