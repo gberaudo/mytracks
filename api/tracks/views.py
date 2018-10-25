@@ -70,7 +70,7 @@ class UserOneTrackView(RetrieveUpdateDestroyAPIView):
       track = models.Track.objects.get(id=track_id)
       return Response(TrackSerializer(track).data)
     except models.Track.DoesNotExist:
-      return Response(status=status.HTTP_400_BAD_REQUEST)
+      return Response(status=status.HTTP_404_BAD_REQUEST)
 
 
   def put(self, request, user_id, track_id):
@@ -80,12 +80,8 @@ class UserOneTrackView(RetrieveUpdateDestroyAPIView):
       serializer.update(track, request.data)
       return Response(serializer.data)
     except models.Track.DoesNotExist:
-      return Response(status=status.HTTP_400_BAD_REQUEST)
+      return Response(status=status.HTTP_404_BAD_REQUEST)
 
   def destroy(self, request, user_id, track_id):
-    try:
-      track = models.Track.objects.get(id=track_id)
-      track.delete()
-      return Response()
-    except models.Track.DoesNotExist:
-      return Response(status=status.HTTP_400_BAD_REQUEST)
+    models.Track.objects.filter(id=track_id).delete()
+    return Response()
