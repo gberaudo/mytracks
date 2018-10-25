@@ -1,11 +1,10 @@
-from django.views import View
+from django.http import HttpResponseBadRequest
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics
 
 from . import models
 from . import serializers
 from . import users_permission
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseBadRequest
 
 
 class UserListView(generics.ListCreateAPIView):
