@@ -172,4 +172,8 @@ export class MapService {
     const features = this.trackManager.getFeatures();
     return geojsonFormat.writeFeatures(features);
   }
+
+  deleteLastPoint() {
+    this.trackManager.deleteLastPoint();
+  }
 }

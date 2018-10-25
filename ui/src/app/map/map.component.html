@@ -26,22 +26,27 @@
   </div>
 
 
-  <div *ngIf="currentTrack">
+  <div *ngIf="currentTrack && isEditing">
     <input [(ngModel)]="currentTrack.name">
-    <div>
-      <a href="#" (click)="saveTrack()">Save track</a>
-    </div>
+
+    <div><a href="#" (click)="deleteLastPoint()">Delete last point</a></div>
+    <div><a href="#" (click)="saveTrack()">Save track</a></div>
+    <div><a href="#" (click)="clearCurrentTrack()">Back to list</a></div>
+  </div>
+
+
+  <div *ngIf="currentTrack && !isEditing">
+    <div><span>{{currentTrack.name}}</span></div>
+    <div><a href="#" (click)="editTrack(currentTrack.id)">Edit</a></div>
+    <div><a href="#" (click)="clearCurrentTrack()">Back to list</a></div>
+  </div>
+
+  <hr />
+  <div>
+    <div><span class="p-0 btn btn-link" (click)="exportGpx()">Export to gpx</span></div>
 
     <div>
-        <a href="#" (click)="clearCurrentTrack()">Back to list</a>
-    </div>
-
-    <div id="export-gpx">
-        <span class="btn btn-link" (click)="exportGpx()">Export to gpx</span>
-    </div>
-
-    <div id="import-gpx">
-      <label class="btn btn-link">Import gpx file
+      <label class="p-0 btn btn-link">Import gpx file
       <input type="file" (change)="importGpx($event.target.files)" style="display: none"/>
       </label>
     </div>

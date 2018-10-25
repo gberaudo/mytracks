@@ -15,6 +15,7 @@ export class MapComponent implements OnInit {
   profile = 'walking';
   userTracks: Array<TrackListItem> = [];
   currentTrack: Track;
+  isEditing = false;
 
   constructor(
     private mapService: MapService,
@@ -35,6 +36,7 @@ export class MapComponent implements OnInit {
       geojson: null,
       profile: 'walking',
     };
+    this.isEditing = true;
     this.mapService.viewTrack(this.currentTrack);
     this.mapService.startEditing();
   }
@@ -47,6 +49,7 @@ export class MapComponent implements OnInit {
   }
 
   editTrack(id: number) {
+    this.isEditing = true;
     return this.viewTrack(id).then(() => this.mapService.startEditing());
   }
 
@@ -56,6 +59,11 @@ export class MapComponent implements OnInit {
     this.mapService.stopEditing();
     this.mapService.clearTrack();
     this.currentTrack = null;
+    this.isEditing = false;
+  }
+
+  deleteLastPoint() {
+    this.mapService.deleteLastPoint();
   }
 
   changeProfile() {
