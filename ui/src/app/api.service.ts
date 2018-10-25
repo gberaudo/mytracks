@@ -68,7 +68,7 @@ export class ApiService {
 
   saveTrack(track: Track): Promise<void> {
     if (track.id) {
-      // nothing to do
+      trackListStub.find(item => item.id === track.id).name = track.name;
       return Promise.resolve();
     } else {
       return this.addTrack(track);
