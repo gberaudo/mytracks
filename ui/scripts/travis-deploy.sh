@@ -13,7 +13,6 @@ popd
 
 mkdir -p ${TMP}/releases
 cp -r dist/mytracks ${TMP}/releases/${TRAVIS_BRANCH}
-node_modules/.bin/ngsw-config dist ngsw-config.json /mytracks/releases/'${TRAVIS_BRANCH}
 sed -i 'sYbase href="/"Ybase href="/mytracks/releases/'${TRAVIS_BRANCH}/'"Y' ${TMP}/releases/${TRAVIS_BRANCH}/index.html
 
 cp -R dist/apidoc ${TMP}/releases/${TRAVIS_BRANCH}/
