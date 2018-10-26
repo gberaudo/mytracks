@@ -129,12 +129,12 @@ export class MapService {
     });
 
     // we import gpx as a ground layer to assist track creation, so we are interested in LineString features only.
-    const lineFeatures = features.filter(feature => {
-      return feature.getGeometry().getType() === 'LineString';
-    });
+    // const lineFeatures = features.filter(feature => {
+    //   return feature.getGeometry().getType() === 'LineString'; // TODO: or MultiLineString
+    // });
 
     this.importLayer.getSource().clear();
-    this.importLayer.getSource().addFeatures(lineFeatures);
+    this.importLayer.getSource().addFeatures(features);
 
     // fit map to imported features
     this._fitMapToFeatures(features);

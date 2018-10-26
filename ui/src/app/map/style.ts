@@ -71,6 +71,7 @@ export function importLayerStyleFunction(feature: (ol.Feature | ol.render.Featur
   const type = feature.getGeometry().getType();
   switch (type) {
     case 'LineString':
+    case 'MultiLineString':
       return importedLineStyle;
     default:
       return null;
