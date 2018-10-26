@@ -137,6 +137,14 @@ export class MapService {
     this.importLayer.getSource().addFeatures(lineFeatures);
 
     // fit map to imported features
+    this._fitMapToFeatures(features);
+  }
+
+  clearTrack() {
+    this.trackManager.clear();
+  }
+
+  private _fitMapToFeatures(features: Array<Feature>) {
     const extent = features.reduce((pre, feature) => {
       return extend(pre, feature.getGeometry().getExtent());
     }, createEmpty());
@@ -146,15 +154,12 @@ export class MapService {
     });
   }
 
-  clearTrack() {
-    this.trackManager.clear();
-  }
-
   viewTrack(track) {
     const geojson = track.geojson;
     if (geojson) {
       const features = geojsonFormat.readFeatures(geojson);
       this.trackManager.restoreFeatures(features);
+      this._fitMapToFeatures(features);
     } else {
       this.trackManager.clear();
     }
