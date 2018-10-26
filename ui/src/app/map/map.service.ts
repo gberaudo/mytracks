@@ -129,14 +129,22 @@ export class MapService {
     });
 
     // we import gpx as a ground layer to assist track creation, so we are interested in LineString features only.
-    const lineFeatures = features.filter(feature => {
-      return feature.getGeometry().getType() === 'LineString';
-    });
+    // const lineFeatures = features.filter(feature => {
+    //   return feature.getGeometry().getType() === 'LineString'; // TODO: or MultiLineString
+    // });
 
     this.importLayer.getSource().clear();
-    this.importLayer.getSource().addFeatures(lineFeatures);
+    this.importLayer.getSource().addFeatures(features);
 
     // fit map to imported features
+    this._fitMapToFeatures(features);
+  }
+
+  clearTrack() {
+    this.trackManager.clear();
+  }
+
+  private _fitMapToFeatures(features: Array<Feature>) {
     const extent = features.reduce((pre, feature) => {
       return extend(pre, feature.getGeometry().getExtent());
     }, createEmpty());
@@ -146,15 +154,12 @@ export class MapService {
     });
   }
 
-  clearTrack() {
-    this.trackManager.clear();
-  }
-
   viewTrack(track) {
     const geojson = track.geojson;
     if (geojson) {
       const features = geojsonFormat.readFeatures(geojson);
       this.trackManager.restoreFeatures(features);
+      this._fitMapToFeatures(features);
     } else {
       this.trackManager.clear();
     }
