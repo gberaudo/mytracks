@@ -18,4 +18,18 @@ export class AppComponent {
     private mapService: MapService,
   ) {
   }
+
+  logIn() {
+    this.apiService.logIn().then(() => {
+      this.loggedIn = true;
+      this.mapService.updateTracksList();
+    });
+  }
+
+  logOut() {
+    this.apiService.logOut().then(() => {
+      this.loggedIn = false;
+      this.mapService.updateTracksList();
+    });
+  }
 }

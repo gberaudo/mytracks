@@ -8,7 +8,7 @@
     <a class="p-2 text-dark" href="#">EN | DE | FR | IT</a>
     <a class="p-2 text-dark" href="#">Pricing</a>
   </nav>
-  <a *ngIf="!loggedIn" class="btn btn-outline-primary" (click)="loggedIn = true" href="#">Log in</a>
-  <a *ngIf="loggedIn" class="btn btn-outline-secondary" (click)="loggedIn = false" href="#">Log out</a>
+  <a *ngIf="!loggedIn" class="btn btn-outline-primary" (click)="logIn()" href="#">Log in</a>
+  <a *ngIf="loggedIn" class="btn btn-outline-secondary" (click)="logOut()" href="#">Log out</a>
 </div>
 <app-map></app-map>

@@ -23,6 +23,7 @@ import Feature from 'ol/Feature';
 
 import saveAs from 'save-as';
 import { GeoJsonObject } from 'geojson';
+import { TrackListItem, ApiService } from '../api.service';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
 
@@ -45,9 +46,15 @@ export class MapService {
   private router: OSRMRouter;
 
   private importLayer: OlVectorLayer; // layer to display imported feature, e.g. from gpx
+  userTracks: Array<TrackListItem> = [];
 
-  constructor() {
+  constructor(private apiService: ApiService) {
     this.initMap();
+  }
+
+
+  updateTracksList() {
+    this.apiService.listTracks().then(tracks => this.userTracks = tracks);
   }
 
   private initMap() {
