@@ -56,10 +56,10 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-  email = models.EmailField(unique=True, null=False)
+  email = models.EmailField(unique=True, null=False, max_length=80)
   email_validate_token = models.CharField(_('email_validate_token'), max_length=30, blank=True, null=True, unique=True)
   email_validated = models.BooleanField(default=False)
-  username = models.CharField(max_length=30, blank=True, null=True)
+  username = models.CharField(max_length=80, blank=True, null=True)
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = []
   objects = CustomUserManager()
