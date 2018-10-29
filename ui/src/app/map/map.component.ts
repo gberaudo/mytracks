@@ -79,6 +79,10 @@ export class MapComponent implements OnInit {
     this.mapService.deleteLastPoint();
   }
 
+  get hasPoints() {
+    return this.mapService.hasPoints();
+  }
+
   changeProfile() {
     this.mapService.setProfile(this.profile);
   }

@@ -26,10 +26,10 @@
 
 
   <div *ngIf="currentTrack && isEditing">
-    <input [(ngModel)]="currentTrack.name" placeholder="Track name">
+    <input [(ngModel)]="currentTrack.name" #name="ngModel" placeholder="Track name">
 
-    <div><a href="#" (click)="deleteLastPoint()">Delete last point</a></div>
-    <div *ngIf="loggedIn"><a href="#" (click)="saveTrack()">Save track</a></div>
+    <div *ngIf="hasPoints"><a href="#" (click)="deleteLastPoint()">Delete last point</a></div>
+    <div *ngIf="loggedIn && hasPoints && name.dirty"><a href="#" (click)="saveTrack()">Save track</a></div>
     <div><a href="#" (click)="clearCurrentTrack()">↩ Back to list</a></div>
   </div>
 
@@ -43,7 +43,7 @@
 
   <hr />
   <div>
-    <div><span class="p-0 btn btn-link" (click)="exportGpx()">Export to gpx</span></div>
+    <div *ngIf="hasPoints"><span class="p-0 btn btn-link" (click)="exportGpx()">Export to gpx</span></div>
 
     <div>
       <label class="p-0 btn btn-link">Import gpx file

@@ -188,4 +188,8 @@ export class MapService {
   deleteLastPoint() {
     this.trackManager.deleteLastPoint();
   }
+
+  hasPoints() {
+    return this.trackManager.getFeatures().length !== 0;
+  }
 }
