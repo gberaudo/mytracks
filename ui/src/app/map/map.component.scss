@@ -5,10 +5,8 @@
 }
 
 #menu {
-  position: absolute;
-  left: .5em;
-  top: 100px;
-  z-index: 1000;
+  position: fixed;
+  margin-top: 1em;
 
   #menu-toggle-btn {
     background-color: #ffffffb5;
