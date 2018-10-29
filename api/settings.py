@@ -118,9 +118,16 @@ REST_FRAMEWORK = {
   ),
 }
 
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        'token': token,
+        'user_id': user.id
+    }
+
 JWT_AUTH = {
   'JWT_ALLOW_REFRESH': True,
   'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+  'JWT_RESPONSE_PAYLOAD_HANDLER': jwt_response_payload_handler,
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
