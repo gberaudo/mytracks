@@ -22,7 +22,7 @@ export class MapComponent implements OnInit {
 
   get userTracks(): Array<TrackListItem> {
     return this.mapService.userTracks;
-  };
+  }
 
   constructor(
     private mapService: MapService,

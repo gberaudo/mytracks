@@ -17,7 +17,7 @@ export interface TrackListItem {
 export interface LoginResponse {
   key: string;
   user_id: number;
-};
+}
 
 let httpOptions = {
   headers: <HttpHeaders> null
