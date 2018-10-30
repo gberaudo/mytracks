@@ -65,10 +65,10 @@ export class ApiService {
     return this.http.delete<void>(`${apiUser}/tracks/${track.id}`, httpOptions).toPromise();
   }
 
-  logIn() {
+  logIn(username: string, password: string) {
     return this.http.post<LoginResponse>(`${api}/rest-auth/login/`, {
-      username: 'guillaume.beraudo+crac2@gmail.com',
-      password: 'cotcot'
+      username,
+      password
     }).toPromise().then(response => {
       apiUser = `${api}/users/${response.user_id}`;
       httpOptions = {
