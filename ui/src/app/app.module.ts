@@ -4,7 +4,8 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PlaceSearchModule} from './place-search/place-search.module';
 import {MapModule} from './map/map.module';
-import { environment } from '../environments/environment';
+import {HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     PlaceSearchModule,
     MapModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
