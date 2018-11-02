@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapComponent } from './map.component';
 import {FormsModule} from '@angular/forms';
 import {NgbButtonsModule} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClientModule} from '@angular/common/http';
 
 
 describe('MapComponent', () => {
@@ -12,7 +13,7 @@ describe('MapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MapComponent ],
-      imports: [FormsModule, NgbButtonsModule]
+      imports: [FormsModule, NgbButtonsModule, HttpClientModule]
     })
     .compileComponents();
   }));

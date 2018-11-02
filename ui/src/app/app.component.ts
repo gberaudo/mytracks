@@ -1,7 +1,4 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import { Track, ApiService } from './api.service';
-import { MapService } from './map/map.service';
-
 
 @Component({
   selector: 'app-root',
@@ -10,12 +7,4 @@ import { MapService } from './map/map.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'mytracks';
-  loggedIn = false;
-
-  constructor(
-    private apiService: ApiService,
-    private mapService: MapService,
-  ) {
-  }
 }

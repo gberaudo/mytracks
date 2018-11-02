@@ -4,11 +4,6 @@
   <div class="mr-md-auto">
     <app-place-search></app-place-search>
   </div>
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="#">EN | DE | FR | IT</a>
-    <a class="p-2 text-dark" href="#">Pricing</a>
-  </nav>
-  <a *ngIf="!loggedIn" class="btn btn-outline-primary" (click)="loggedIn = true" href="#">Log in</a>
-  <a *ngIf="loggedIn" class="btn btn-outline-secondary" (click)="loggedIn = false" href="#">Log out</a>
+  <app-login></app-login>
 </div>
 <app-map></app-map>

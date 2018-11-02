@@ -17,33 +17,33 @@
       </div> -->
 
   <div *ngIf="!currentTrack">
-    <ul><h5>My tracks</h5>
-      <li><a (click)="createNewTrack()" href="#">New track</a></li>
-      <li *ngFor="let track of userTracks">
-        <a (click)="viewTrack(track.id)" href="#">{{track.name}}</a>
-      </li>
-    </ul>
+    <h5>My tracks</h5>
+    <div><a (click)="createNewTrack()" href="#">New track</a></div>
+    <div *ngFor="let track of userTracks">
+      <a (click)="viewTrack(track.id)" href="#">{{track.name}}</a>
+    </div>
   </div>
 
 
   <div *ngIf="currentTrack && isEditing">
-    <input [(ngModel)]="currentTrack.name">
+    <input [(ngModel)]="currentTrack.name" #name="ngModel" placeholder="Track name">
 
-    <div><a href="#" (click)="deleteLastPoint()">Delete last point</a></div>
-    <div><a href="#" (click)="saveTrack()">Save track</a></div>
-    <div><a href="#" (click)="clearCurrentTrack()">Back to list</a></div>
+    <div *ngIf="hasPoints"><a href="#" (click)="deleteLastPoint()">Delete last point</a></div>
+    <div *ngIf="loggedIn && hasPoints && name.dirty"><a href="#" (click)="saveTrack()">Save track</a></div>
+    <div><a href="#" (click)="clearCurrentTrack()">↩ Back to list</a></div>
   </div>
 
 
   <div *ngIf="currentTrack && !isEditing">
     <div><span>{{currentTrack.name}}</span></div>
-    <div><a href="#" (click)="editTrack(currentTrack.id)">Edit</a></div>
-    <div><a href="#" (click)="clearCurrentTrack()">Back to list</a></div>
+    <div><a href="#" (click)="editTrack()">Edit</a></div>
+    <div><a href="#" (click)="deleteTrack()">Delete</a></div>
+    <div><a href="#" (click)="clearCurrentTrack()">↩ Back to list</a></div>
   </div>
 
   <hr />
   <div>
-    <div><span class="p-0 btn btn-link" (click)="exportGpx()">Export to gpx</span></div>
+    <div *ngIf="hasPoints"><span class="p-0 btn btn-link" (click)="exportGpx()">Export to gpx</span></div>
 
     <div>
       <label class="p-0 btn btn-link">Import gpx file
