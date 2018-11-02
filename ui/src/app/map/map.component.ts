@@ -24,11 +24,6 @@ export class MapComponent implements OnInit {
     this.apiService.listTracks().then(tracks => this.userTracks = tracks);
   }
 
-  clearCurrentTrack() {
-    this.mapService.clearTrack();
-    this.currentTrack = null;
-  }
-
   createNewTrack() {
     this.currentTrack = {
       id: undefined,
@@ -39,6 +34,13 @@ export class MapComponent implements OnInit {
     this.isEditing = true;
     this.mapService.viewTrack(this.currentTrack);
     this.mapService.startEditing();
+  }
+
+  stopEditing() {
+    this.mapService.stopEditing();
+    this.mapService.clearTrack();
+    this.currentTrack = null;
+    this.isEditing = false;
   }
 
   viewTrack(id: number) {
@@ -56,10 +58,7 @@ export class MapComponent implements OnInit {
   saveTrack() {
     this.currentTrack.geojson = this.mapService.getCurrentTrackAsGeojson();
     this.apiService.saveTrack(this.currentTrack);
-    this.mapService.stopEditing();
-    this.mapService.clearTrack();
-    this.currentTrack = null;
-    this.isEditing = false;
+    this.stopEditing();
   }
 
   deleteLastPoint() {

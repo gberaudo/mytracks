@@ -31,14 +31,14 @@
 
     <div><a href="#" (click)="deleteLastPoint()">Delete last point</a></div>
     <div><a href="#" (click)="saveTrack()">Save track</a></div>
-    <div><a href="#" (click)="clearCurrentTrack()">Back to list</a></div>
+    <div><a href="#" (click)="stopEditing()">Back to list</a></div>
   </div>
 
 
   <div *ngIf="currentTrack && !isEditing">
     <div><span>{{currentTrack.name}}</span></div>
     <div><a href="#" (click)="editTrack(currentTrack.id)">Edit</a></div>
-    <div><a href="#" (click)="clearCurrentTrack()">Back to list</a></div>
+    <div><a href="#" (click)="stopEditing()">Back to list</a></div>
   </div>
 
   <hr />
