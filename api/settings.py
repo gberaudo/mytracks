@@ -22,9 +22,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', '') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  'mytracks.beraudo.net',
+  'gberaudo.github.io'
+]
 
 # Application definition
 
@@ -82,7 +85,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': 'mytracks',
     'USER': 'mytracksuser',
-    'PASSWORD': 'crocmol',
+    'PASSWORD': os.environ['DB_PASSWORD'],
     'HOST': 'localhost',
     'PORT': '',
   }
@@ -111,23 +114,10 @@ REST_FRAMEWORK = {
     'rest_framework.permissions.IsAuthenticated',
   ),
   'DEFAULT_AUTHENTICATION_CLASSES': (
-    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     'rest_framework.authentication.SessionAuthentication',
     'rest_framework.authentication.BasicAuthentication',
     'rest_framework.authentication.TokenAuthentication',
   ),
-}
-
-def jwt_response_payload_handler(token, user=None, request=None):
-    return {
-        'token': token,
-        'user_id': user.id
-    }
-
-JWT_AUTH = {
-  'JWT_ALLOW_REFRESH': True,
-  'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
-  'JWT_RESPONSE_PAYLOAD_HANDLER': jwt_response_payload_handler,
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -140,7 +130,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_USE_TLS = True
 
 # api url
-API_URL = os.environ.get('API_URL') or 'http://127.0.0.1:8000'
+API_URL = os.environ.get('API_URL', 'http://127.0.0.1:8000')
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
