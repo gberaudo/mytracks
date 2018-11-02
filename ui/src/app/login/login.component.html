@@ -1,0 +1,28 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Authenticate</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #myForm="ngForm">
+        <div class="modal-boy">
+            <div class="container">
+      <div class="form-group">
+        <label>Username
+          <input #username="ngModel" class="form-control" type="text" required [(ngModel)]="loginUsername" name="username">
+        </label>
+        <label>Password
+          <input #password="ngModel" class="form-control" type="password" required [(ngModel)]="loginPassword" name="password">
+        </label>
+      </div></div></div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button [disabled]="!myForm.form.valid" type="button" class="btn btn-success" (click)="logIn(username.value, password.value, modal)">Log in</button>
+  </div>
+</ng-template>
+
+<button *ngIf="!loggedIn" class="btn btn-outline-primary" (click)="open(content)">Log in</button>
+<button *ngIf="loggedIn" class="btn btn-outline-secondary" (click)="logOut()">Log out</button>

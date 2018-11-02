@@ -13,21 +13,27 @@ export class MapComponent implements OnInit {
 
   public showMenu = true;
   profile = 'walking';
-  userTracks: Array<TrackListItem> = [];
   currentTrack: Track;
   isEditing = false;
+
+  get loggedIn() {
+    return this.apiService.isLoggedIn();
+  }
+
+  get userTracks(): Array<TrackListItem> {
+    return this.mapService.userTracks;
+  }
 
   constructor(
     private mapService: MapService,
     private apiService: ApiService,
   ) {
-    this.apiService.listTracks().then(tracks => this.userTracks = tracks);
   }
 
   createNewTrack() {
     this.currentTrack = {
       id: undefined,
-      name: 'Super track',
+      name: '',
       geojson: null,
       profile: 'walking',
     };
@@ -50,19 +56,31 @@ export class MapComponent implements OnInit {
     });
   }
 
-  editTrack(id: number) {
-    this.isEditing = true;
-    return this.viewTrack(id).then(() => this.mapService.startEditing());
+  deleteTrack() {
+    return this.apiService.deleteTrack(this.currentTrack).then(() => {
+      this.currentTrack = null;
+      this.mapService.updateTracksList();
+    });
   }
 
-  saveTrack() {
+  editTrack() {
+    this.isEditing = true;
+    return this.viewTrack(this.currentTrack.id).then(() => this.mapService.startEditing());
+  }
+
+  async saveTrack() {
     this.currentTrack.geojson = this.mapService.getCurrentTrackAsGeojson();
-    this.apiService.saveTrack(this.currentTrack);
+    await this.apiService.saveTrack(this.currentTrack);
+    this.mapService.updateTracksList();
     this.stopEditing();
   }
 
   deleteLastPoint() {
     this.mapService.deleteLastPoint();
+  }
+
+  get hasPoints() {
+    return this.mapService.hasPoints();
   }
 
   changeProfile() {
