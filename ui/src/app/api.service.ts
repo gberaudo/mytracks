@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GeoJsonObject, GeoJsonTypes } from 'geojson';
+import { GeoJsonObject } from 'geojson';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface Track {
@@ -23,7 +23,9 @@ let httpOptions = {
   headers: <HttpHeaders> null
 };
 
-const api = 'http://localhost:8000';
+const api = (function() {
+  return location.host === 'localhost' ? 'http://localhost:8000' : 'https://mytracks.beraudo.net/api';
+})();
 let apiUser: string;
 
 @Injectable({
