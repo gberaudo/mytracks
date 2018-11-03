@@ -16,6 +16,8 @@ const passwordValidator: ValidatorFn = (control: FormGroup): ValidationErrors | 
 })
 export class RegistrationComponent implements OnInit {
 
+  public registered = false;
+
   public registrationForm: FormGroup;
 
   constructor(private apiService: ApiService) {
@@ -33,7 +35,13 @@ export class RegistrationComponent implements OnInit {
   register() {
     const email = this.registrationForm.get('email').value;
     const password = this.registrationForm.get('password').value;
-    this.apiService.register(email, password);
+    this.apiService.register(email, password)
+      .then(() => {
+        this.registered = true;
+      })
+      .catch(err => {
+        alert(`An error occured: ${JSON.stringify(err.error)}`);
+      });
   }
 
 }

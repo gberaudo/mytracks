@@ -1,5 +1,6 @@
 <div mat-dialog-title>
-  <h4>Create account
+  <h4><span *ngIf="!registered">Create account</span>
+    <span *ngIf="registered">Account registered  </span>
     <button class="close btn" aria-label="Close" mat-button mat-dialog-close tabindex="-1">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -8,16 +9,16 @@
 
 </div>
 <mat-dialog-content>
-  <form class="registration-form" [formGroup]="registrationForm" (ngSubmit)="register()">
+  <form *ngIf="!registered" class="registration-form" [formGroup]="registrationForm" (ngSubmit)="register()">
     <div class="form-line">
-    <mat-form-field>
-      <input type="text" matInput placeholder="Email" aria-label="Email" formControlName="email"/>
-    </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Email" aria-label="Email" formControlName="email"/>
+      </mat-form-field>
     </div>
     <div class="form-line">
-    <mat-form-field>
-      <input matInput placeholder="Password" type="password" aria-label="Password" formControlName="password"/>
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" aria-label="Password" formControlName="password"/>
+      </mat-form-field>
     </div>
     <div class="form-line">
       <mat-form-field>
@@ -40,4 +41,8 @@
     <input [disabled]="!registrationForm.valid" type="submit" value="Register" id="register-btn" aria-label="Submit"
            class="btn btn-primary"/>
   </form>
+
+  <div *ngIf="registered">
+    Your have successfully registered. Please go to your mail box to validate your account.
+  </div>
 </mat-dialog-content>
