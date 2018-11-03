@@ -27,6 +27,9 @@ export class PlaceSearchService {
   }
 
   public geocode(placeStr: string): Promise<Place[]> {
+    if (placeStr.trim().length <= 2) {
+      return Promise.resolve([]);
+    }
     return this.mapquestGeocode(placeStr)
       .then(mapquestPlaces => {
         return mapquestPlaces.map(mapquestPlace => {
