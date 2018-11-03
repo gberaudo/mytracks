@@ -1,26 +1,24 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Authenticate</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <h4 class="modal-title">Login</h4>
+    <span class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
-    </button>
+    </span>
   </div>
   <div class="modal-body">
-    <form #myForm="ngForm">
-        <div class="modal-boy">
-            <div class="container">
-      <div class="form-group">
-        <label>Username
-          <input #username="ngModel" class="form-control" type="text" required [(ngModel)]="loginUsername" name="username">
-        </label>
-        <label>Password
-          <input #password="ngModel" class="form-control" type="password" required [(ngModel)]="loginPassword" name="password">
-        </label>
-      </div></div></div>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <mat-form-field>
+        <input matInput placeholder="Username" aria-label="Username" formControlName="username"/>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" aria-label="Password" formControlName="password"/>
+      </mat-form-field>
+      <br/>
+      <input [disabled]="!loginForm.valid" type="submit" value="Log in" id="login-btn"
+             class="btn btn-primary"/>
+
     </form>
-  </div>
-  <div class="modal-footer">
-    <button [disabled]="!myForm.form.valid" type="button" class="btn btn-success" (click)="logIn(username.value, password.value, modal)">Log in</button>
   </div>
 </ng-template>
 

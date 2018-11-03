@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {LoginModule} from './login/login.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent],
+    AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -22,6 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     FormsModule,
     NgbModule,
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

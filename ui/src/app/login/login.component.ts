@@ -1,38 +1,45 @@
 import {Component} from '@angular/core';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from '../api.service';
-import { MapService } from '../map/map.service';
+import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {ApiService} from '../api.service';
+import {MapService} from '../map/map.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent {
-  closeResult: string;
+  loginForm: FormGroup;
+  loginModal: NgbModalRef;
 
   get loggedIn() {
     return this.apiService.isLoggedIn();
   }
 
-  constructor(
-    private apiService: ApiService,
-    private mapService: MapService,
-    private modalService: NgbModal,
-  ) {}
-
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
+  constructor(private apiService: ApiService,
+              private mapService: MapService,
+              private modalService: NgbModal,
+              ) {
+    this.loginForm = new FormGroup({
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     });
   }
 
-  logIn(username, password, modal) {
+  open(content) {
+    this.loginModal = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  login() {
+    const username = this.loginForm.get('username').value;
+    const password = this.loginForm.get('password').value;
     this.apiService.logIn(username, password).then(() => {
       this.mapService.updateTracksList();
-      modal.close();
+      this.loginModal.close();
     }, () => {
-      console.error('Could not log in');
+      alert('Could not log in');
     });
   }
 
