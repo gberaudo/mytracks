@@ -14,10 +14,16 @@
       <mat-form-field>
         <input type="text" matInput placeholder="Email" aria-label="Email" formControlName="email"/>
       </mat-form-field>
+      <div *ngIf="registrationForm.controls['email'].touched &&
+                  registrationForm.controls['email'].dirty
+                  && !registrationForm.controls['email'].valid"
+           class="text-danger">Please enter a valid email
+      </div>
     </div>
     <div class="form-line">
       <mat-form-field>
-        <input matInput placeholder="Password" type="password" aria-label="Password" formControlName="password"/>
+        <input matInput placeholder="Password (at least 5 character)" type="password" aria-label="Password"
+               formControlName="password"/>
       </mat-form-field>
     </div>
     <div class="form-line">
