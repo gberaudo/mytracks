@@ -1,0 +1,17 @@
+.registration-form {
+  .form-line {
+    display: block;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  mat-form-field {
+    width: calc(100% - 1em);
+  }
+
+  #register-btn {
+    display: block;
+    float: right;
+    padding-right: 2em;
+  }
+}

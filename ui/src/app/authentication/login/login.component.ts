@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ApiService} from '../../api.service';
 import {MapService} from '../../map/map.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
+import {RegistrationComponent} from '../registration/registration.component';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,8 @@ export class LoginDialogComponent implements OnInit {
 
   constructor(private apiService: ApiService,
               private mapService: MapService,
-              private dialogRef: MatDialogRef<LoginDialogComponent>) {
+              private dialogRef: MatDialogRef<LoginDialogComponent>,
+              public registrationDialog: MatDialog) {
 
   }
 
@@ -65,5 +67,11 @@ export class LoginDialogComponent implements OnInit {
     }, () => {
       alert('Could not log in');
     });
+  }
+
+  openRegistrationForm() {
+    this.registrationDialog.open(RegistrationComponent, {width: '600px'});
+    this.dialogRef.close();
+
   }
 }
