@@ -1,0 +1,23 @@
+<div mat-dialog-title>
+  <h4>Login
+    <button class="close btn" aria-label="Close" mat-button mat-dialog-close tabindex="-1">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </h4>
+  <hr>
+
+</div>
+<mat-dialog-content>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Username" aria-label="Username"
+             formControlName="username"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Password" type="password" aria-label="Password" formControlName="password"/>
+    </mat-form-field>
+    <br/>
+    <input [disabled]="!loginForm.valid" type="submit" value="Log in" id="login-btn" aria-label="Submit"
+           class="btn btn-primary"/>
+  </form>
+</mat-dialog-content>

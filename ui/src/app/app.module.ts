@@ -5,11 +5,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PlaceSearchModule} from './place-search/place-search.module';
 import {MapModule} from './map/map.module';
 import {HttpClientModule} from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
-import { LoginComponent } from './login/login.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {LoginModule} from './login/login.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {AuthenticationModule} from './authentication/authentication.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,7 @@ import {LoginModule} from './login/login.module';
     HttpClientModule,
     FormsModule,
     NgbModule,
-    LoginModule,
+    AuthenticationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

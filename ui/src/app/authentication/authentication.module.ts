@@ -1,14 +1,18 @@
 import {NgModule} from '@angular/core';
-import {LoginComponent} from './login.component';
 import {HttpClientModule} from '@angular/common/http';
-import {MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatDialogModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
+import {LoginComponent, LoginDialogComponent} from './login/login.component';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LoginDialogComponent,
+  ],
+  entryComponents: [
+    LoginDialogComponent,
   ],
   exports: [
     LoginComponent
@@ -17,12 +21,13 @@ import {BrowserModule} from '@angular/platform-browser';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
     HttpClientModule
   ]
 })
-export class LoginModule {
+export class AuthenticationModule {
 
 }
