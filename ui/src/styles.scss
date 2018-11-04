@@ -2,6 +2,10 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~ol/ol.css';
 
+:root {
+  --topnav-height: 4em;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -14,4 +18,8 @@ html, body {
 
 .ol-rotate {
   top: 4.5em;
+}
+
+.ol-control button {
+  cursor: pointer;
 }
