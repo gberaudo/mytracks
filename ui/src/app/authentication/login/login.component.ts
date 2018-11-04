@@ -6,36 +6,6 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {RegistrationComponent} from '../registration/registration.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['login.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-
-})
-export class LoginComponent {
-
-  get loggedIn() {
-    return this.apiService.isLoggedIn();
-  }
-
-  constructor(private apiService: ApiService,
-              private mapService: MapService,
-              public loginDialog: MatDialog) {
-
-  }
-
-  openLoginDialog() {
-    this.loginDialog.open(LoginDialogComponent, {width: '400px'});
-  }
-
-  logOut() {
-    this.apiService.logOut().then(() => {
-      this.mapService.updateTracksList();
-    });
-  }
-}
-
-@Component({
   selector: 'app-login-dialog',
   templateUrl: 'login.dialog.html',
 })
@@ -73,5 +43,35 @@ export class LoginDialogComponent implements OnInit {
     this.registrationDialog.open(RegistrationComponent, {width: '600px'});
     this.dialogRef.close();
 
+  }
+}
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['login.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+
+})
+export class LoginComponent {
+
+  get loggedIn() {
+    return this.apiService.isLoggedIn();
+  }
+
+  constructor(private apiService: ApiService,
+              private mapService: MapService,
+              public loginDialog: MatDialog) {
+
+  }
+
+  openLoginDialog() {
+    this.loginDialog.open(LoginDialogComponent, {width: '400px'});
+  }
+
+  logOut() {
+    this.apiService.logOut().then(() => {
+      this.mapService.updateTracksList();
+    });
   }
 }

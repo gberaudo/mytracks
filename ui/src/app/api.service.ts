@@ -24,8 +24,10 @@ let httpOptions = {
 };
 
 const apiUrl = (function () {
-  return location.host === 'localhost' ? 'http://localhost:8000' : 'https://mytracks.beraudo.net/api';
+  return location.hostname === 'localhost' ? 'http://localhost:8000' : 'https://mytracks.beraudo.net/api';
 })();
+
+let apiUserUrl: string;
 
 @Injectable({
   providedIn: 'root'
