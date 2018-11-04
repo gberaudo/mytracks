@@ -1,0 +1,14 @@
+.login-form {
+  mat-form-field {
+    display: block;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #login-btn {
+    display: block;
+    float: right;
+    padding-right: 2em;
+  }
+}

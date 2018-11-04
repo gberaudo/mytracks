@@ -1,0 +1,54 @@
+<div mat-dialog-title>
+  <h4><span *ngIf="!registered">Create account</span>
+    <span *ngIf="registered">Account registered  </span>
+    <button class="close btn" aria-label="Close" mat-button mat-dialog-close tabindex="-1">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </h4>
+  <hr>
+
+</div>
+<mat-dialog-content>
+  <form *ngIf="!registered" class="registration-form" [formGroup]="registrationForm" (ngSubmit)="register()">
+    <div class="form-line">
+      <mat-form-field>
+        <input type="text" matInput placeholder="Email" aria-label="Email" formControlName="email"/>
+      </mat-form-field>
+      <div *ngIf="registrationForm.controls['email'].touched &&
+                  registrationForm.controls['email'].dirty
+                  && !registrationForm.controls['email'].valid"
+           class="text-danger">Please enter a valid email
+      </div>
+    </div>
+    <div class="form-line">
+      <mat-form-field>
+        <input matInput placeholder="Password (at least 5 character)" type="password" aria-label="Password"
+               formControlName="password"/>
+      </mat-form-field>
+    </div>
+    <div class="form-line">
+      <mat-form-field>
+        <input matInput placeholder="Confirm password" type="password" aria-label="Confirm password"
+               formControlName="confirmPassword"/>
+      </mat-form-field>
+      <span *ngIf="registrationForm.errors?.passwordNotMatch
+        && (registrationForm.controls['password'].dirty && registrationForm.controls['confirmPassword'].dirty)"
+            class="text-danger">
+        *
+      </span>
+      <span *ngIf="!registrationForm.errors?.passwordNotMatch
+        && (registrationForm.controls['password'].valid && registrationForm.controls['confirmPassword'].valid)"
+            class="text-success">
+        *
+      </span>
+    </div>
+
+    <br/>
+    <input [disabled]="!registrationForm.valid" type="submit" value="Register" id="register-btn" aria-label="Submit"
+           class="btn btn-primary"/>
+  </form>
+
+  <div *ngIf="registered">
+    Your have successfully registered. Please go to your mail box to validate your account.
+  </div>
+</mat-dialog-content>
