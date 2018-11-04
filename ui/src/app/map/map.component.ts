@@ -70,6 +70,7 @@ export class MapComponent implements OnInit {
 
   async saveTrack() {
     this.currentTrack.geojson = this.mapService.getCurrentTrackAsGeojson();
+    this.currentTrack.line_geometry = this.mapService.getCurrentTrackGeometry();
     await this.apiService.saveTrack(this.currentTrack);
     this.mapService.updateTracksList();
     this.stopEditing();

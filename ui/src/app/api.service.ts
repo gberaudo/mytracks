@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {GeoJsonObject} from 'geojson';
+import {GeoJsonObject, LineString} from 'geojson';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 export interface Track {

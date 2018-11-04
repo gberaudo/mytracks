@@ -9,7 +9,7 @@ from . import models
 class TrackSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.Track
-    fields = ('id', 'name', 'description', 'profile', 'geojson', 'user')
+    fields = ('id', 'name', 'description', 'profile', 'geojson', 'user', 'line_geometry')
 
   def update(self, instance, validated_data):
     instance.name = validated_data.get('name')

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
+from django.contrib.gis.db import models as gis_models
 
 class Track(models.Model):
   class Meta:
@@ -10,3 +11,4 @@ class Track(models.Model):
   description = models.TextField(null=True, blank=True)
   profile = models.CharField(max_length=30)
   geojson = JSONField(default=None)
+  line_geometry = gis_models.LineStringField(null=True, srid=3857)

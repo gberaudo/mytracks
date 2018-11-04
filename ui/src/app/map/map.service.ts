@@ -22,7 +22,7 @@ import PointGeometry from 'ol/geom/Point';
 import Feature from 'ol/Feature';
 
 import saveAs from 'save-as';
-import { GeoJsonObject } from 'geojson';
+import { GeoJsonObject, LineString } from 'geojson';
 import { TrackListItem, ApiService } from '../api.service';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
@@ -183,6 +183,11 @@ export class MapService {
   getCurrentTrackAsGeojson(): GeoJsonObject {
     const features = this.trackManager.getFeatures();
     return geojsonFormat.writeFeatures(features);
+  }
+
+  getCurrentTrackGeometry(): LineString {
+    const geometry = this.trackManager.getTrackFeature().getGeometry();
+    return geojsonFormat.writeGeometry(geometry);
   }
 
   deleteLastPoint() {
