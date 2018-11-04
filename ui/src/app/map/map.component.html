@@ -26,7 +26,7 @@
 
 
   <div *ngIf="currentTrack && isEditing">
-    <input [(ngModel)]="currentTrack.name" #name="ngModel" placeholder="Track name">
+    <input *ngIf="loggedIn" [(ngModel)]="currentTrack.name" #name="ngModel" placeholder="Track name">
     <div *ngIf="hasPoints"><a href="#" (click)="deleteLastPoint()">Delete last point</a></div>
     <div *ngIf="loggedIn && hasPoints && name.dirty"><a href="#" (click)="saveTrack()">Save track</a></div>
     <div><a href="#" (click)="stopEditing()">Back to list</a></div>
