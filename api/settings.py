@@ -25,6 +25,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ.get('DEBUG', '') == 'True'
 
 ALLOWED_HOSTS = [
+  'localhost',
+  '127.0.0.1',
   'mytracks.beraudo.net',
   'gberaudo.github.io'
 ]
