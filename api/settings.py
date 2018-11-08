@@ -41,6 +41,7 @@ INSTALLED_APPS = [
   'django.contrib.sessions',
   'django.contrib.messages',
   'django.contrib.staticfiles',
+  'django.contrib.gis',
   'rest_framework',
   'rest_framework.authtoken',
   'rest_auth',
@@ -84,7 +85,8 @@ WSGI_APPLICATION = 'wsgi.application'
 
 DATABASES = {
   'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#    'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': os.environ.get('DB_NAME', 'mytracks'),
     'USER': os.environ.get('DB_USER', 'mytracksuser'),
     'PASSWORD': os.environ.get('DB_PASSWORD', 'mytrackspw'),
@@ -154,3 +156,7 @@ STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+import logging
+logger = logging.getLogger('django.db.backends')
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler())

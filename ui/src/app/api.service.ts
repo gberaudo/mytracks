@@ -104,4 +104,15 @@ export class ApiService {
   isLoggedIn() {
     return !!httpOptions.headers;
   }
+
+  sendPasswordRecoveryRequest(email: string) {
+    return this.http.post(`${apiUrl}/users/password_recovery_request`, {email: email})
+    .toPromise()
+    .then(response => {
+      console.log('email sent successfull', response);
+    })
+    .catch(err => {
+      console.log('Error', err);
+    });
+  }
 }
