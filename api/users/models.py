@@ -58,6 +58,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
   email = models.EmailField(unique=True, null=False, max_length=80)
   email_validate_token = models.CharField(_('email_validate_token'), max_length=30, blank=True, null=True, unique=True)
+  password_recovery_token = models.CharField(_('email_validate_token'), max_length=30, blank=True, null=True, unique=True)
   email_validated = models.BooleanField(default=False)
   username = models.CharField(max_length=80, blank=True, null=True)
   USERNAME_FIELD = 'email'
@@ -70,3 +71,7 @@ class CustomUser(AbstractUser):
   def set_email_validate_token(self):
     from django.utils.crypto import get_random_string
     self.email_validate_token = get_random_string(30)
+
+  def set_password_recovery_token(self):
+    from django.utils.crypto import get_random_string
+    self.password_recovery_token = get_random_string(30)

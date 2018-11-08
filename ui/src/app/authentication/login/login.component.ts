@@ -4,6 +4,7 @@ import {ApiService} from '../../api.service';
 import {MapService} from '../../map/map.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {RegistrationComponent} from '../registration/registration.component';
+import { PasswordRecoveryComponent } from '../password-recovery/password-recovery.component';
 
 @Component({
   selector: 'app-login-dialog',
@@ -16,7 +17,7 @@ export class LoginDialogComponent implements OnInit {
   constructor(private apiService: ApiService,
               private mapService: MapService,
               private dialogRef: MatDialogRef<LoginDialogComponent>,
-              public registrationDialog: MatDialog) {
+              public dialog: MatDialog) {
 
   }
 
@@ -40,9 +41,14 @@ export class LoginDialogComponent implements OnInit {
   }
 
   openRegistrationForm() {
-    this.registrationDialog.open(RegistrationComponent, {width: '600px'});
+    this.dialog.open(RegistrationComponent, {width: '600px'});
     this.dialogRef.close();
 
+  }
+
+  openPasswordRecoveryForm() {
+    this.dialog.open(PasswordRecoveryComponent, {width: '600px'});
+    this.dialogRef.close();
   }
 }
 

@@ -22,7 +22,6 @@ from api.users.auth import CustomAuthToken
 urlpatterns = [
   path('admin/', admin.site.urls),
   path('users/', include('users.urls')),
-  #path('rest-auth/login', CustomAuthToken.as_view()),
   path('rest-auth/login/', CustomAuthToken.as_view()),
   path('rest-auth/', include('rest_auth.urls')),
   path('tracks/', include(('tracks.urls'))),
