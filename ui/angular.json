@@ -26,6 +26,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/tiles",
+              "src/compactoux",
+              "src/tilesbus",
+              "src/tilestrack",
+              "src/images/transports",
               "src/manifest.json",
               "src/manifest.json"
             ],
@@ -127,6 +132,41 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "transports": {
+      "root": "projects/transports",
+      "sourceRoot": "projects/transports/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/transports/tsconfig.lib.json",
+            "project": "projects/transports/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/transports/src/test.ts",
+            "tsConfig": "projects/transports/tsconfig.spec.json",
+            "karmaConfig": "projects/transports/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/transports/tsconfig.lib.json",
+              "projects/transports/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

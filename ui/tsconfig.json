@@ -16,6 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "transports": [
+        "dist/transports"
+      ],
+      "transports/*": [
+        "dist/transports/*"
+      ]
+    }
   }
 }

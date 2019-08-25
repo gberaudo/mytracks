@@ -9,6 +9,13 @@ import OlOSMSource from 'ol/source/OSM';
 import OlVectorSource from 'ol/source/Vector';
 import GPXFormat from 'ol/format/GPX';
 import GeoJSONFormat from 'ol/format/GeoJSON';
+import Style from 'ol/style/Style.js';
+import Stroke from 'ol/style/Stroke.js';
+import Icon from 'ol/style/Icon.js';
+
+import MVT from 'ol/format/MVT.js';
+import VectorTileLayer from 'ol/layer/VectorTile.js';
+import VectorTileSource from 'ol/source/VectorTile.js';
 
 // @ts-ignore
 import {createEmpty, extend} from 'ol/extent';
@@ -21,9 +28,13 @@ import {controlPointStyle, importLayerStyleFunction, trackLayerStyleFunction} fr
 import PointGeometry from 'ol/geom/Point';
 import Feature from 'ol/Feature';
 
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorSource from 'ol/source/Vector.js';
+
 import saveAs from 'save-as';
 import { GeoJsonObject } from 'geojson';
 import { TrackListItem, ApiService } from '../api.service';
+import { CompactouxReader } from './CompactouxSource';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2JvMiIsImEiOiJjam5kbGpqcTUwZTJ5M3BueTd6dHB3aHk3In0.Gi-NTgWMekLzwkz59kaMTQ';
 
@@ -50,6 +61,7 @@ export class MapService {
 
   constructor(private apiService: ApiService) {
     this.initMap();
+    this.updateTracksList();
   }
 
 
@@ -71,7 +83,7 @@ export class MapService {
       style: importLayerStyleFunction
     });
 
-    const map = this.map = new OlMap({
+    const map = window['map'] = this.map = new OlMap({
       layers: [
         bgLayer,
         importLayer,
@@ -98,6 +110,203 @@ export class MapService {
       router,
       style: controlPointStyle
     });
+
+    //this.initBusLayer();
+    fetch('compactoux')
+    .then(response => response.arrayBuffer())
+    .then(buffer => this.initCompactouxBusLayer(buffer));
+
+    //this.initBusSegmentsLayer();
+    //this.initTrackSegmentsLayer();
+  }
+
+
+  private initCompactouxBusLayer(buffer) {
+    const reader = new CompactouxReader(buffer);
+    const features = reader.readFeatures('EPSG:3857');
+    const cache = {};
+    const layer = new VectorLayer({
+      useSpatialIndex: false,
+      opacity: 0.45,
+      maxResolution: 15,
+      source: new VectorSource({
+        attributions: '© <a href="https://data.geo.admin.ch/ch.bav.haltestellen-oev">Swisstopo</a>',
+        features: features,
+      }),
+      style: (feature, resolution) => {
+        const type = feature.getProperties().type;
+        if (!cache[type]) {
+          cache[type] = new Style({
+              image: new Icon({
+                scale: 0.8,
+                src: `images/transports/${type}.png`
+              })
+            });
+        }
+        return cache[type];
+        // console.log(feature, resolution);
+      }
+    });
+
+    this.map.addLayer(layer);
+
+    const filterOptions = {
+      layerFilter: l => l === layer,
+      hitTolerance: 5
+    };
+
+    this.map.on('pointermove', (evt) => {
+      const hovered = this.map.hasFeatureAtPixel(evt.pixel, filterOptions);
+      const style = this.map.getTargetElement().style;
+      const newStyle = hovered ? 'pointer' : 'default';
+      if (style.cursor !== newStyle) {
+        style.cursor = newStyle;
+      };
+    });
+
+    const urlByLang = {
+      'de': 'https://www.sbb.ch/de/kaufen/pages/fahrplan/fahrplan.xhtml',
+      'en': 'https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml',
+      'fr': 'https://www.sbb.ch/fr/acheter/pages/fahrplan/fahrplan.xhtml',
+      'it': 'https://www.sbb.ch/it/acquistare/pages/fahrplan/fahrplan.xhtml'
+    };
+
+
+    this.map.on('singleclick', (evt) => {
+      this.map.forEachFeatureAtPixel(evt.pixel, (feature) => {
+        const url = `${urlByLang['fr']}?nach=${feature.get('id')}`;
+        window.open(url, '_blank', 'noopener');
+      }, filterOptions);
+    });
+  }
+
+
+  private initBusLayer() {
+    const cache = {};
+    const layer = new VectorTileLayer({
+      declutter: false,
+      renderBuffer: 100,
+      renderMode: 'image',
+      opacity: 0.45,
+      source: new VectorTileSource({
+        attributions: '© <a href="https://data.geo.admin.ch/ch.bav.haltestellen-oev">Swisstopo</a>',
+        format: new MVT(),
+        url: 'tiles/{z}/{x}/{y}.pbf'
+      }),
+      style: (feature, resolution) => {
+        const type = feature.getProperties().type;
+        if (!cache[type]) {
+          cache[type] = new Style({
+              image: new Icon({
+                scale: 0.8,
+                src: `images/transports/${type}.png`
+              })
+            });
+        }
+        return cache[type];
+        // console.log(feature, resolution);
+      }
+    });
+
+    this.map.addLayer(layer);
+
+    const filterOptions = {
+      layerFilter: l => l === layer,
+      hitTolerance: 5
+    };
+
+    this.map.on('pointermove', (evt) => {
+      const hovered = this.map.hasFeatureAtPixel(evt.pixel, filterOptions);
+      const style = this.map.getTargetElement().style;
+      const newStyle = hovered ? 'pointer' : 'default';
+      if (style.cursor !== newStyle) {
+        style.cursor = newStyle;
+      };
+    });
+
+    const urlByLang = {
+      'de': 'https://www.sbb.ch/de/kaufen/pages/fahrplan/fahrplan.xhtml',
+      'en': 'https://www.sbb.ch/en/buying/pages/fahrplan/fahrplan.xhtml',
+      'fr': 'https://www.sbb.ch/fr/acheter/pages/fahrplan/fahrplan.xhtml',
+      'it': 'https://www.sbb.ch/it/acquistare/pages/fahrplan/fahrplan.xhtml'
+    };
+
+
+    this.map.on('singleclick', (evt) => {
+      this.map.forEachFeatureAtPixel(evt.pixel, (feature) => {
+        const url = `${urlByLang['fr']}?nach=${feature.get('id')}`;
+        window.open(url, '_blank', 'noopener');
+      }, filterOptions);
+    });
+  }
+
+  private initBusSegmentsLayer() {
+    const cache = {};
+    const colors = {
+      bus: 'red',
+      train: 'green',
+      subway: 'purple'
+    };
+    const layer = new VectorTileLayer({
+      //declutter: false,
+      source: new VectorTileSource({
+        attributions: '© OSM',
+        format: new MVT(),
+        url: 'tilesbus/{z}/{x}/{y}.pbf'
+      }),
+     style: (feature, resolution) => {
+       const type = feature.getProperties().route;
+       if (!cache[type]) {
+         cache[type] = new Style({
+            stroke: new Stroke({
+              color: colors[type],
+              width: 2,
+             })
+           });
+       }
+       return cache[type];
+       // console.log(feature, resolution);
+     }
+    });
+
+    this.map.addLayer(layer);
+  }
+
+  private initTrackSegmentsLayer() {
+    const cache = {};
+    const colors = {
+      paved: 'lightred',
+      concrete: 'lightgreen',
+      gravel: 'gray',
+      unknown: 'transparent',
+      // track: 'blue',
+      // footway: 'yellow',
+      // steps: 'red',
+      // path: 'green'
+    };
+    const layer = new VectorTileLayer({
+      //declutter: false,
+      source: new VectorTileSource({
+        attributions: '© OSM',
+        format: new MVT(),
+        url: 'tilestrack/{z}/{x}/{y}.pbf'
+      }),
+     style: (feature, resolution) => {
+       const type = feature.getProperties().surface || 'unkown';
+       if (!cache[type]) {
+         cache[type] = new Style({
+            stroke: new Stroke({
+              color: colors[type] || colors['unknown'],
+              width: 2,
+             })
+           });
+       }
+       return cache[type];
+       // console.log(feature, resolution);
+     }
+    });
+
+    this.map.addLayer(layer);
   }
 
   public exportGpx() {
